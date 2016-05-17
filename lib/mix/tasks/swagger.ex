@@ -52,7 +52,7 @@ defmodule Mix.Tasks.Swagger do
       swagger_json = Map.put(__MODULE__.app_json, :definitions, __MODULE__.build_definitions(:code.all_loaded, %{}))
 
       Mix.shell.info "Adding Phoenix Routes..."
-      swagger_json = __MODULE__.add_routes(__MODULE__.get_router(args).__routes__ |> Enum.filter(fn(%Phoenix.Router.Route{} = x) -> x.pipe_through |> List.first == :api end), swagger_json)
+      swagger_json = __MODULE__.add_routes(__MODULE__.get_router(args).__routes__, swagger_json)
 
       Mix.shell.info "Writing JSON to file..."
       output_path = Application.get_env(:swaggerdoc, :output_path, System.cwd!() <> "/swagger")
